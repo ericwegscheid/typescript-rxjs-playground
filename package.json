@@ -1,0 +1,28 @@
+{
+  "name": "typescript-rxjs-playground",
+  "version": "1.0.0",
+  "description": "A project to experiment with RxJS in a TypeScript environment.",
+  "main": "index.js",
+  "scripts": {
+    "app": "clear && npm run build && npm run launch",
+    "build": "tsc",
+    "dev": "run-when-changed --watch './src/**/*.ts' --exec 'clear && npm run build && npm run launch'",
+    "launch": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericwegscheid/typescript-rxjs-playground.git"
+  },
+  "author": "ericwegscheid@mailfence.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericwegscheid/typescript-rxjs-playground/issues"
+  },
+  "homepage": "https://github.com/ericwegscheid/typescript-rxjs-playground#readme",
+  "devDependencies": {
+    "run-when-changed": "^2.1.0",
+    "rxjs": "^7.8.1",
+    "typescript": "^5.3.3"
+  }
+}
