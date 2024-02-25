@@ -4,9 +4,8 @@
   "description": "A project to experiment with RxJS in a TypeScript environment.",
   "main": "index.js",
   "scripts": {
-    "app": "clear && npm run build && npm run launch",
     "build": "tsc",
-    "dev": "run-when-changed --watch './src/**/*.ts' --exec 'clear && npm run build && npm run launch'",
+    "dev": "run-when-changed --watch './src/**/*.ts' --exec 'npm run build && npm run launch'",
     "launch": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
