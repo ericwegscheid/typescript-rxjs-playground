@@ -1,37 +1,39 @@
-import { of, from, tap } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { of, from } from 'rxjs';
+import { concatMap, filter, map, switchMap, tap } from 'rxjs/operators';
+
+import { timeout } from '../utils';
 
 export function run(): void {
   let group = [];
   let otherGroup = [];
+  const timeoutValues = [3000, 2000, 1000, 3000];
 
-  from([1, 2, 3, 4]).pipe(
+  from([0, 1, 2, 3]).pipe(
     tap((item) => {
-      console.log('');
       console.log(`\npushing item, '${item}', onto the group array`);
-      group.push(item);
-    }),
-    tap(() => {
+      group.push(item * 10);
       otherGroup = [...group];
-      console.log('setting `otherGroup` with values from `group`:', JSON.stringify(group));
     }),
-    concatMap(() => {
-      console.log('now using the `from` operator again on the `groups` array');
-      return from(group).pipe(
-        concatMap((item) => {
-          return of(item).pipe(
-            tap(() => {
-              console.log('processing item', item);
-              console.log('');
-            })
-          );
-        })
-      );
-    })
-  ).subscribe(() => {
+  ).subscribe((yup) => {
+    console.log('yup', yup);
     console.log('subscribe handler called');
     console.log('group:     ', group);
     console.log('otherGroup:', otherGroup);
+    console.log('---------');
+
+    from(group).pipe(
+      concatMap((item) => {
+        return timeout(
+          of(item).pipe(
+            tap((item) => console.log(item)),
+            map((item) => item * 10),
+          ),
+          timeoutValues[item as number],
+        );
+      })
+    ).subscribe((result) => {
+      console.log('result', result);
+    });
   });
 }
 
